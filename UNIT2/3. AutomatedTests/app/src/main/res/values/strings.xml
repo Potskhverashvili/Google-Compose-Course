@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Art Space app</string>
+
+    <string name="artwork_title_1">Still Life of Blue Rose and Other Flowers</string>
+    <string name="artist_1">Owen Scott (2021)</string>
+
+    <string name="artwork_title_2">Sunset Over Tranquil Lake</string>
+    <string name="artist_2">Maria Gomez (2019)</string>
+
+    <string name="artwork_title_3">Abstract Motion in Red</string>
+    <string name="artist_3">Liam Chen (2020)</string>
+
+    <string name="artwork_title_4">The Silent Forest</string>
+    <string name="artist_4">Ava Dubois (2022)</string>
+
+
+
 </resources>
