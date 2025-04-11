@@ -38,4 +38,3 @@ val Typography = Typography(
         fontSize = 20.sp
     )
 )
-)
