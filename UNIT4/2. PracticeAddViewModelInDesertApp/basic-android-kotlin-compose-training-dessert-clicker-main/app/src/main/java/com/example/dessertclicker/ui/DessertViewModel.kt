@@ -11,41 +11,33 @@ import kotlinx.coroutines.flow.update
 
 class DessertViewModel : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DessertUiState(currentDessertImageId = R.drawable.cupcake))
+    private val _uiState =
+        MutableStateFlow(DessertUiState(currentDessertImageId = R.drawable.cupcake))
     val uiState: StateFlow<DessertUiState> = _uiState.asStateFlow()
 
     fun updateStates() {
-        _uiState.update { currentState ->
-            currentState.copy(
-                dessertsSold = currentState.dessertsSold.inc(),
-            )
-        }
-
+        val newDessertsSold = _uiState.value.dessertsSold + 1
         val dessertToShow =
-            determineDessertToShow(Datasource.dessertList, _uiState.value.dessertsSold)
+            determineDessertToShow(Datasource.dessertList, newDessertsSold)
 
         _uiState.update { currentState ->
             currentState.copy(
-                revenue = dessertToShow.price,
+                revenue = currentState.revenue + dessertToShow.price,
+                dessertsSold = newDessertsSold,
                 currentDessertImageId = dessertToShow.imageId
             )
         }
     }
 
-    fun determineDessertToShow(
+    private fun determineDessertToShow(
         desserts: List<Dessert>,
-        dessertsSold: Int// 1
+        dessertsSold: Int
     ): Dessert {
         var dessertToShow = desserts.first()
-
         for (dessert in desserts) {
             if (dessertsSold >= dessert.startProductionAmount) {
                 dessertToShow = dessert
             } else {
-                // The list of desserts is sorted by startProductionAmount. As you sell more desserts,
-                // you'll start producing more expensive desserts as determined by startProductionAmount
-                // We know to break as soon as we see a dessert who's "startProductionAmount" is greater
-                // than the amount sold.
                 break
             }
         }
